@@ -20,42 +20,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect Button with Timer Example</title>
+    <title>Delayed Clickable Button</title>
+    <style>
+        /* Add some basic styling to the button */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: not-allowed;
+        }
+
+        button.active {
+            cursor: pointer;
+            background-color: #2ecc71;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Redirecting in <span id="countdown">10</span> seconds...</h1>
+    <h1>Delayed Clickable Button</h1>
 
-    <!-- JavaScript Function for Redirect with Timer -->
+    <!-- Button that becomes clickable after 10 seconds -->
+    <button id="delayedButton" onclick="handleButtonClick()" disabled>Click Me After 10 Seconds</button>
+
     <script>
-        // Set the countdown duration in seconds
-        const countdownDuration = 10;
+        // Set the delay before the button becomes clickable (in milliseconds)
+        const delayBeforeClickable = 10000; // 10000 milliseconds = 10 seconds
 
-        // Function to update the countdown display
-        function updateCountdown(seconds) {
-            document.getElementById('countdown').innerText = seconds;
+        // Function to enable the button after the delay
+        function enableButton() {
+            const button = document.getElementById('delayedButton');
+            button.disabled = false;
+            button.classList.add('active');
         }
 
-        // Function to redirect after the countdown
-        function redirectToNewLink() {
-            // Replace 'https://example.com' with the desired link
-            window.location.href = 'https://example.com';
+        // Function to handle button click
+        function handleButtonClick() {
+            alert('Button Clicked!');
+            // Add more functionality here if needed
         }
 
-        // Countdown timer
-        let secondsRemaining = countdownDuration;
-        updateCountdown(secondsRemaining);
-
-        const countdownInterval = setInterval(function () {
-            secondsRemaining--;
-
-            if (secondsRemaining <= 0) {
-                clearInterval(countdownInterval);
-                redirectToNewLink();
-            } else {
-                updateCountdown(secondsRemaining);
-            }
-        }, 1000); // Update every 1 second
+        // Set a timeout to enable the button after the specified delay
+        setTimeout(enableButton, delayBeforeClickable);
     </script>
 
 </body>
