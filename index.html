@@ -20,21 +20,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect Button Example</title>
+    <title>Redirect Button with Timer Example</title>
 </head>
 <body>
 
-    <h1>Click the Button to Redirect</h1>
+    <h1>Redirecting in <span id="countdown">10</span> seconds...</h1>
 
-    <!-- Button with JavaScript Redirect -->
-    <button onclick="redirectToNewLink()">Go to New Link</button>
-
-    <!-- JavaScript Function for Redirect -->
+    <!-- JavaScript Function for Redirect with Timer -->
     <script>
+        // Set the countdown duration in seconds
+        const countdownDuration = 10;
+
+        // Function to update the countdown display
+        function updateCountdown(seconds) {
+            document.getElementById('countdown').innerText = seconds;
+        }
+
+        // Function to redirect after the countdown
         function redirectToNewLink() {
             // Replace 'https://example.com' with the desired link
             window.location.href = 'https://example.com';
         }
+
+        // Countdown timer
+        let secondsRemaining = countdownDuration;
+        updateCountdown(secondsRemaining);
+
+        const countdownInterval = setInterval(function () {
+            secondsRemaining--;
+
+            if (secondsRemaining <= 0) {
+                clearInterval(countdownInterval);
+                redirectToNewLink();
+            } else {
+                updateCountdown(secondsRemaining);
+            }
+        }, 1000); // Update every 1 second
     </script>
 
 </body>
